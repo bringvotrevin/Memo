@@ -1,3 +1,8 @@
+const getMemofromLocalStorage = () => {
+	const memo = JSON.parse(localStorage.getItem('memoNote'));
+	return memo || [];
+}
+
 const createLi = (className) => {
 	const $li = document.createElement('li');
 	$li.className = className;
@@ -47,7 +52,8 @@ const addButtonEventListener = ($inputMemoTitle, $textarea, $btnAdd) => {
 			content,
 			'id': id,
 		};
-		console.log(memo);
+		// console.log(memo);
+		// console.log($inputMemoTitle);
 		localMemo.push(memo);
 		localStorage.setItem('memoNote', JSON.stringify(localMemo));
 		$inputMemoTitle.value = '';
@@ -88,9 +94,40 @@ const addNewMemoEventListener = () => {
 	$btnNewMemoNote.addEventListener('click', addNewMemo);
 }
 
-const getMemofromLocalStorage = () => {
-	const memo = JSON.parse(localStorage.getItem('memoNote'));
-	return memo || [];
+const editButtonEventListener = ($btnEdit	,$inputMemoTitle, $textarea) => {
+	$btnEdit.addEventListener('click', function() {
+		$inputMemoTitle.readOnly = false;
+		$textarea.readOnly = false;
+		$btnEdit.textContent = 'Save';
+		$btnEdit.addEventListener('click', function() {
+			const id = $inputMemoTitle.getAttribute('name');
+			console.log(id);
+			for(let memo of localMemo) {
+				if (memo.id == id) {
+					memo.title = $inputMemoTitle.value;
+					memo.content = $textarea.value;
+					break;
+				}
+			}
+			localStorage.setItem('memoNote', JSON.stringify(localMemo));
+			render();
+		})
+	})
+}
+
+const deleteButtonEventListener = ($btnDelete, $inputMemoTitle) => {
+	$btnDelete.addEventListener('click', function() {
+		const id = $inputMemoTitle.getAttribute('name');
+		console.log(id);
+		const index = localMemo.findIndex((memo) => memo.id == id);
+		console.log('index: ',index);
+		console.log(localMemo);
+		localMemo.splice(index, 1);
+		console.log(localMemo);
+
+		localStorage.setItem('memoNote', JSON.stringify(localMemo));
+		render();
+	})
 }
 
 const displayMemo = () => {
@@ -100,16 +137,21 @@ const displayMemo = () => {
 		const $labelMemoTitle = createLabel('memo-title', 'a11y-hidden', 'Memo Title');
 		const $inputMemoTitle = createInput('memo-title', 'text', false, true);
 		$inputMemoTitle.value = localMemo[i].title;
+		$inputMemoTitle.setAttribute('name', localMemo[i].id);
 		const $labelMemoContent = createLabel('memo-content', 'a11y-hidden', 'Memo Content');
 		const $textarea = createTextarea('memo-content', '10', false, true);
 		$textarea.value = localMemo[i].content;
 		const $btnEdit = createButton('btn-edit-memo', 'Edit');
+		const $btnDelete = createButton('btn-delete-memo', 'Delete');
 		$liMemo.appendChild($labelMemoTitle);
 		$liMemo.appendChild($inputMemoTitle);
 		$liMemo.appendChild($labelMemoContent);
 		$liMemo.appendChild($textarea);
 		$liMemo.appendChild($btnEdit);
+		$liMemo.appendChild($btnDelete);
 		$container.appendChild($liMemo);
+		editButtonEventListener($btnEdit, $inputMemoTitle, $textarea);
+		deleteButtonEventListener($btnDelete, $inputMemoTitle);
 	}
 }
 
@@ -122,8 +164,6 @@ const render = () => {
 	const $container = document.querySelector('.container');
 	$container.innerHTML = '';
 	if (localMemo.length) displayMemo();
-	// displayMemo([1, 2, 3]);
-	
 }
 
 const localMemo = getMemofromLocalStorage();
