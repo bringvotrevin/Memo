@@ -52,7 +52,6 @@ li {
 }
 
 button[class$='memo'] {
-  /* padding: 5px; */
   margin-right: 10px;
   width: 70px;
   height: 40px;
@@ -68,6 +67,16 @@ button[class$='memo']:active {
   box-shadow: inset 3px 3px #262f3e;
 }
 
+button.btn-add-memo {
+  background-color: #2e6ff2;
+  border-color: #2e6ff2;
+  box-shadow: inset 3px 3px #4673f8;
+}
+
+button.btn-add-memo:active {
+  box-shadow: inset 3px 3px #5e86fd;
+}
+
 button.btn-close-memo {
   padding: 0;
   display: block;
@@ -81,7 +90,7 @@ button.btn-close-memo {
   text-align: center;
 }
 
-button[class$='memo']:active {
+button.btn-close-memo:active {
   box-shadow: none;
 }
 

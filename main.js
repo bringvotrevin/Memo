@@ -46,6 +46,10 @@ const addButtonEventListener = ($inputMemoTitle, $textarea, $btnAdd) => {
 	$btnAdd.addEventListener('click', function () {
 		const title = $inputMemoTitle.value;
 		const content = $textarea.value;
+		if (!title) {
+			alert('타이틀을 입력해주세요');
+			return ;
+		}
 		const id = self.crypto.randomUUID();
 		const memo = {
 			title,
