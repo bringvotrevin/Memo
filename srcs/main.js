@@ -52,8 +52,6 @@ const addButtonEventListener = ($inputMemoTitle, $textarea, $btnAdd) => {
 			content,
 			'id': id,
 		};
-		// console.log(memo);
-		// console.log($inputMemoTitle);
 		localMemo.push(memo);
 		localStorage.setItem('memoNote', JSON.stringify(localMemo));
 		$inputMemoTitle.value = '';
@@ -76,7 +74,7 @@ const addNewMemo = function () {
 	const $labelMemoTitle = createLabel('memo-title', 'a11y-hidden', 'Memo Title');
 	const $inputMemoTitle = createInput('memo-title', 'text', true, false);
 	const $labelMemoContent = createLabel('memo-content', 'a11y-hidden', 'Memo Content');
-	const $textarea = createTextarea('memo-content', '10', true, false);
+	const $textarea = createTextarea('memo-content', '9', true, false);
 	const $btnAdd = createButton('btn-add-memo', 'Add');
 	$liNewMemo.appendChild($btnClose);
 	$liNewMemo.appendChild($labelMemoTitle);
@@ -139,7 +137,7 @@ const displayMemo = () => {
 		$inputMemoTitle.value = localMemo[i].title;
 		$inputMemoTitle.setAttribute('name', localMemo[i].id);
 		const $labelMemoContent = createLabel('memo-content', 'a11y-hidden', 'Memo Content');
-		const $textarea = createTextarea('memo-content', '10', false, true);
+		const $textarea = createTextarea('memo-content', '8', false, true);
 		$textarea.value = localMemo[i].content;
 		const $btnEdit = createButton('btn-edit-memo', 'Edit');
 		const $btnDelete = createButton('btn-delete-memo', 'Delete');
