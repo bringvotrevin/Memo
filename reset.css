@@ -22,6 +22,7 @@ button {
 
 textarea {
   font: inherit;
+  resize: none;
 }
 
 .a11y-hidden {
