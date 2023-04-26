@@ -1,7 +1,7 @@
-const createSection = (className) => {
-	const $section = document.createElement('section');
-	$section.className = className;
-	return $section;
+const createLi = (className) => {
+	const $li = document.createElement('li');
+	$li.className = className;
+	return $li;
 }
 
 const createLabel = (id, className, text) => {
@@ -56,31 +56,31 @@ const addButtonEventListener = ($inputMemoTitle, $textarea, $btnAdd) => {
 	})
 }
 
-const closeButtonEventListener = ($container, $sectionNewMemo, $btnClose) => {
+const closeButtonEventListener = ($container, $liNewMemo, $btnClose) => {
 	$btnClose.addEventListener('click', function () {
-		$container.removeChild($sectionNewMemo);
+		$container.removeChild($liNewMemo);
 	})
 }
 
 const addNewMemo = function () {
-	if (document.querySelector('.section-new-memo')) return ;
+	if (document.querySelector('.li-new-memo')) return ;
 	const $container = document.querySelector('.container');
-	const $sectionNewMemo = createSection('section-new-memo');
+	const $liNewMemo = createLi('li-new-memo');
 	const $btnClose = createButton('btn-close-memo', 'x');
 	const $labelMemoTitle = createLabel('memo-title', 'a11y-hidden', 'Memo Title');
 	const $inputMemoTitle = createInput('memo-title', 'text', true, false);
 	const $labelMemoContent = createLabel('memo-content', 'a11y-hidden', 'Memo Content');
 	const $textarea = createTextarea('memo-content', '10', true, false);
 	const $btnAdd = createButton('btn-add-memo', 'Add');
-	$sectionNewMemo.appendChild($btnClose);
-	$sectionNewMemo.appendChild($labelMemoTitle);
-	$sectionNewMemo.appendChild($inputMemoTitle);
-	$sectionNewMemo.appendChild($labelMemoContent);
-	$sectionNewMemo.appendChild($textarea);
-	$sectionNewMemo.appendChild($btnAdd);
-	$container.insertAdjacentElement('afterbegin', $sectionNewMemo);
+	$liNewMemo.appendChild($btnClose);
+	$liNewMemo.appendChild($labelMemoTitle);
+	$liNewMemo.appendChild($inputMemoTitle);
+	$liNewMemo.appendChild($labelMemoContent);
+	$liNewMemo.appendChild($textarea);
+	$liNewMemo.appendChild($btnAdd);
+	$container.insertAdjacentElement('afterbegin', $liNewMemo);
 	addButtonEventListener($inputMemoTitle, $textarea, $btnAdd);
-	closeButtonEventListener($container, $sectionNewMemo, $btnClose);
+	closeButtonEventListener($container, $liNewMemo, $btnClose);
 }
 
 const addNewMemoEventListener = () => {
@@ -96,7 +96,7 @@ const getMemofromLocalStorage = () => {
 const displayMemo = () => {
 	const $container = document.querySelector('.container');
 	for(let i = localMemo.length - 1; i >= 0; i--) {
-		const $sectionMemo = createSection('section-existing-memo');
+		const $liMemo = createLi('li-existing-memo');
 		const $labelMemoTitle = createLabel('memo-title', 'a11y-hidden', 'Memo Title');
 		const $inputMemoTitle = createInput('memo-title', 'text', false, true);
 		$inputMemoTitle.value = localMemo[i].title;
@@ -104,12 +104,12 @@ const displayMemo = () => {
 		const $textarea = createTextarea('memo-content', '10', false, true);
 		$textarea.value = localMemo[i].content;
 		const $btnEdit = createButton('btn-edit-memo', 'Edit');
-		$sectionMemo.appendChild($labelMemoTitle);
-		$sectionMemo.appendChild($inputMemoTitle);
-		$sectionMemo.appendChild($labelMemoContent);
-		$sectionMemo.appendChild($textarea);
-		$sectionMemo.appendChild($btnEdit);
-		$container.appendChild($sectionMemo);
+		$liMemo.appendChild($labelMemoTitle);
+		$liMemo.appendChild($inputMemoTitle);
+		$liMemo.appendChild($labelMemoContent);
+		$liMemo.appendChild($textarea);
+		$liMemo.appendChild($btnEdit);
+		$container.appendChild($liMemo);
 	}
 }
 

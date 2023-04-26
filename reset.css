@@ -1,12 +1,17 @@
 header,
 button,
 main,
-section,
+ul,
+li,
 input,
 textarea {
   margin: initial;
   padding: initial;
   box-sizing: border-box;
+}
+
+ul {
+  list-style-type: none;
 }
 
 button {
