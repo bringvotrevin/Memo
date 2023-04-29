@@ -42,7 +42,7 @@ const createButton = (className, text) => {
 	return $button;
 }
 
-const addButtonEventListener = ($inputMemoTitle, $textarea, $btnAdd) => {
+const addButtonEventListener = ($btnAdd, $modal, $inputMemoTitle, $textarea) => {
 	$btnAdd.addEventListener('click', function () {
 		const title = $inputMemoTitle.value;
 		const content = $textarea.value;
@@ -60,13 +60,20 @@ const addButtonEventListener = ($inputMemoTitle, $textarea, $btnAdd) => {
 		localStorage.setItem('memoNote', JSON.stringify(localMemo));
 		$inputMemoTitle.value = '';
 		$textarea.value = '';
+		$modal.close();
 		render();
 	})
 }
 
-const closeButtonEventListener = ($container, $liNewMemo, $btnClose) => {
-	$btnClose.addEventListener('click', function () {
-		$container.removeChild($liNewMemo);
+// const closeButtonEventListener = ($container, $liNewMemo, $btnClose) => {
+// 	$btnClose.addEventListener('click', function () {
+// 		$container.removeChild($liNewMemo);
+// 	})
+// }
+
+const closeButtonEventListener = ($btnClose, $modal) => {
+	$btnClose.addEventListener('click', function() {
+		$modal.close();
 	})
 }
 
@@ -92,8 +99,34 @@ const addNewMemo = function () {
 }
 
 const addNewMemoEventListener = () => {
-	const $btnNewMemoNote = document.querySelector('.btn-new-memo-note');
-	$btnNewMemoNote.addEventListener('click', addNewMemo);
+	const $btnNewMemoNote = document.querySelector('.btn-make-memopad');
+	// $btnNewMemoNote.addEventListener('click', addNewMemo);
+	$btnNewMemoNote.addEventListener('click', function() {
+		const $modal = document.querySelector('.modal');
+		// $modal.style.display = 'flex';
+		$modal.innerHTML = `
+				<div class="memopad">
+					<button class="btn-close-memo">x</button>
+					<label for="memo-title" class="a11y-hidden"></label>
+					<input type="text" id="memo-title" />
+					<label for="memo-content" class="a11y-hidden"></label>
+					<textarea
+						name="memo-content"
+						id="memo-content"
+						cols="30"
+						rows="10"
+					></textarea>
+					<button class="btn-add-memo">Add</button>
+				</div>
+		`
+		const $inputTitle = document.querySelector('#memo-title');
+		const $inputContent = document.querySelector('#memo-content');
+		const $btnClose = document.querySelector('.btn-close-memo');
+		const $btnAdd = document.querySelector('.btn-add-memo');
+		addButtonEventListener($btnAdd, $modal, $inputTitle, $inputContent);
+		closeButtonEventListener($btnClose, $modal);
+		$modal.showModal();
+	});
 }
 
 const editButtonEventListener = ($btnEdit	,$inputMemoTitle, $textarea) => {

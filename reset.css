@@ -1,17 +1,35 @@
+html,
 header,
+h1,
+body,
 button,
-main,
 ul,
 li,
+div,
 input,
-textarea {
+textarea,
+dialog {
   margin: initial;
   padding: initial;
   box-sizing: border-box;
 }
 
+html {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+}
+
 ul {
   list-style-type: none;
+}
+
+dialog {
+  border: none;
 }
 
 button {
