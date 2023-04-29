@@ -65,62 +65,31 @@ const addButtonEventListener = ($btnAdd, $modal, $inputMemoTitle, $textarea) => 
 	})
 }
 
-// const closeButtonEventListener = ($container, $liNewMemo, $btnClose) => {
-// 	$btnClose.addEventListener('click', function () {
-// 		$container.removeChild($liNewMemo);
-// 	})
-// }
-
 const closeButtonEventListener = ($btnClose, $modal) => {
 	$btnClose.addEventListener('click', function() {
 		$modal.close();
 	})
 }
 
-const addNewMemo = function () {
-	if (document.querySelector('.li-new-memo')) return ;
-	const $container = document.querySelector('.container');
-	const $liNewMemo = createLi('li-new-memo');
-	const $btnClose = createButton('btn-close-memo', 'x');
-	const $labelMemoTitle = createLabel('memo-title', 'a11y-hidden', 'Memo Title');
-	const $inputMemoTitle = createInput('memo-title', 'text', true, false);
-	const $labelMemoContent = createLabel('memo-content', 'a11y-hidden', 'Memo Content');
-	const $textarea = createTextarea('memo-content', '9', true, false);
-	const $btnAdd = createButton('btn-add-memo', 'Add');
-	$liNewMemo.appendChild($btnClose);
-	$liNewMemo.appendChild($labelMemoTitle);
-	$liNewMemo.appendChild($inputMemoTitle);
-	$liNewMemo.appendChild($labelMemoContent);
-	$liNewMemo.appendChild($textarea);
-	$liNewMemo.appendChild($btnAdd);
-	$container.insertAdjacentElement('afterbegin', $liNewMemo);
-	addButtonEventListener($inputMemoTitle, $textarea, $btnAdd);
-	closeButtonEventListener($container, $liNewMemo, $btnClose);
-}
-
 const addNewMemoEventListener = () => {
 	const $btnNewMemoNote = document.querySelector('.btn-make-memopad');
-	// $btnNewMemoNote.addEventListener('click', addNewMemo);
 	$btnNewMemoNote.addEventListener('click', function() {
 		const $modal = document.querySelector('.modal');
-		// $modal.style.display = 'flex';
 		$modal.innerHTML = `
-				<div class="memopad">
-					<button class="btn-close-memo">x</button>
-					<label for="memo-title" class="a11y-hidden"></label>
-					<input type="text" id="memo-title" />
-					<label for="memo-content" class="a11y-hidden"></label>
-					<textarea
-						name="memo-content"
-						id="memo-content"
-						cols="30"
-						rows="10"
-					></textarea>
-					<button class="btn-add-memo">Add</button>
-				</div>
+			<button class="btn-close-memo">x</button>
+			<label for="memo-title" class="a11y-hidden"></label>
+			<input type="text" id="memo-title" />
+			<label for="memo-content" class="a11y-hidden"></label>
+			<textarea
+				name="memo-content"
+				id="memo-content"
+				cols="30"
+				rows="10"
+			></textarea>
+			<button class="btn-add-memo">Add</button>
 		`
-		const $inputTitle = document.querySelector('#memo-title');
-		const $inputContent = document.querySelector('#memo-content');
+		const $inputTitle = document.querySelector('.modal #memo-title');
+		const $inputContent = document.querySelector('.modal #memo-content');
 		const $btnClose = document.querySelector('.btn-close-memo');
 		const $btnAdd = document.querySelector('.btn-add-memo');
 		addButtonEventListener($btnAdd, $modal, $inputTitle, $inputContent);
